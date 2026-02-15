@@ -14,4 +14,6 @@ export interface KnowledgeNode {
   completed?: boolean;
   resources?: string[];
   repoLink?: string;
+  githubRepo?: string;
+  githubType?: "repo" | "org" | "user";
 }

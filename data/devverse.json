@@ -15,7 +15,8 @@
                         "label": "QuickSort",
                         "type": "subtopic",
                         "difficulty": 4,
-                        "progress": 75
+                        "progress": 75,
+                        "githubRepo": "LOTDQuantix/Knowledgeverse"
                     },
                     {
                         "id": "sort-2",
@@ -356,16 +357,56 @@
                 "label": "Database Internals",
                 "type": "topic",
                 "children": [
-                    { "id": "db-1", "label": "B+ Trees", "type": "subtopic" },
-                    { "id": "db-2", "label": "LSM Trees", "type": "subtopic" },
-                    { "id": "db-3", "label": "WAL (Write-Ahead Log)", "type": "subtopic" },
-                    { "id": "db-4", "label": "MVCC", "type": "subtopic" },
-                    { "id": "db-5", "label": "Transaction Isolation", "type": "subtopic" },
-                    { "id": "db-6", "label": "Query Optimizer", "type": "subtopic" },
-                    { "id": "db-7", "label": "Indexing Strategies", "type": "subtopic" },
-                    { "id": "db-8", "label": "Replication Lag", "type": "subtopic" },
-                    { "id": "db-9", "label": "Consistent Hashing", "type": "subtopic" },
-                    { "id": "db-10", "label": "Buffer Pool", "type": "subtopic" }
+                    {
+                        "id": "db-1",
+                        "label": "B+ Trees",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-2",
+                        "label": "LSM Trees",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-3",
+                        "label": "WAL (Write-Ahead Log)",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-4",
+                        "label": "MVCC",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-5",
+                        "label": "Transaction Isolation",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-6",
+                        "label": "Query Optimizer",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-7",
+                        "label": "Indexing Strategies",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-8",
+                        "label": "Replication Lag",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-9",
+                        "label": "Consistent Hashing",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "db-10",
+                        "label": "Buffer Pool",
+                        "type": "subtopic"
+                    }
                 ]
             },
             {
@@ -373,16 +414,56 @@
                 "label": "Networking",
                 "type": "topic",
                 "children": [
-                    { "id": "net-1", "label": "TCP/IP Stack", "type": "subtopic" },
-                    { "id": "net-2", "label": "DNS Lookup", "type": "subtopic" },
-                    { "id": "net-3", "label": "BGP Protocol", "type": "subtopic" },
-                    { "id": "net-4", "label": "Quic / HTTP/3", "type": "subtopic" },
-                    { "id": "net-5", "label": "WebSockets", "type": "subtopic" },
-                    { "id": "net-6", "label": "Load Balancing Algorithms", "type": "subtopic" },
-                    { "id": "net-7", "label": "Subnetting", "type": "subtopic" },
-                    { "id": "net-8", "label": "Anycast Routing", "type": "subtopic" },
-                    { "id": "net-9", "label": "SDN", "type": "subtopic" },
-                    { "id": "net-10", "label": "VPC Peering", "type": "subtopic" }
+                    {
+                        "id": "net-1",
+                        "label": "TCP/IP Stack",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-2",
+                        "label": "DNS Lookup",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-3",
+                        "label": "BGP Protocol",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-4",
+                        "label": "Quic / HTTP/3",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-5",
+                        "label": "WebSockets",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-6",
+                        "label": "Load Balancing Algorithms",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-7",
+                        "label": "Subnetting",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-8",
+                        "label": "Anycast Routing",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-9",
+                        "label": "SDN",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "net-10",
+                        "label": "VPC Peering",
+                        "type": "subtopic"
+                    }
                 ]
             },
             {
@@ -390,16 +471,56 @@
                 "label": "FE Performance",
                 "type": "topic",
                 "children": [
-                    { "id": "fp-1", "label": "Critical Path Rendering", "type": "subtopic" },
-                    { "id": "fp-2", "label": "Web Vitals (LCP, FID)", "type": "subtopic" },
-                    { "id": "fp-3", "label": "Tree Shaking", "type": "subtopic" },
-                    { "id": "fp-4", "label": "Code Splitting", "type": "subtopic" },
-                    { "id": "fp-5", "label": "Image Optimization", "type": "subtopic" },
-                    { "id": "fp-6", "label": "Font Loading Strategies", "type": "subtopic" },
-                    { "id": "fp-7", "label": "Service Workers", "type": "subtopic" },
-                    { "id": "fp-8", "label": "Browser Reflow/Repaint", "type": "subtopic" },
-                    { "id": "fp-9", "label": "V8 Optimization", "type": "subtopic" },
-                    { "id": "fp-10", "label": "Wasm Integration", "type": "subtopic" }
+                    {
+                        "id": "fp-1",
+                        "label": "Critical Path Rendering",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-2",
+                        "label": "Web Vitals (LCP, FID)",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-3",
+                        "label": "Tree Shaking",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-4",
+                        "label": "Code Splitting",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-5",
+                        "label": "Image Optimization",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-6",
+                        "label": "Font Loading Strategies",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-7",
+                        "label": "Service Workers",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-8",
+                        "label": "Browser Reflow/Repaint",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-9",
+                        "label": "V8 Optimization",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "fp-10",
+                        "label": "Wasm Integration",
+                        "type": "subtopic"
+                    }
                 ]
             },
             {
@@ -407,16 +528,56 @@
                 "label": "AI / ML",
                 "type": "topic",
                 "children": [
-                    { "id": "ml-1", "label": "Neural Networks", "type": "subtopic" },
-                    { "id": "ml-2", "label": "Transformers", "type": "subtopic" },
-                    { "id": "ml-3", "label": "Backpropagation", "type": "subtopic" },
-                    { "id": "ml-4", "label": "CNNs", "type": "subtopic" },
-                    { "id": "ml-5", "label": "RNNs", "type": "subtopic" },
-                    { "id": "ml-6", "label": "Reinforcement Learning", "type": "subtopic" },
-                    { "id": "ml-7", "label": "LSTMs", "type": "subtopic" },
-                    { "id": "ml-8", "label": "Fine-tuning", "type": "subtopic" },
-                    { "id": "ml-9", "label": "Feature Engineering", "type": "subtopic" },
-                    { "id": "ml-10", "label": "Model Deployment", "type": "subtopic" }
+                    {
+                        "id": "ml-1",
+                        "label": "Neural Networks",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-2",
+                        "label": "Transformers",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-3",
+                        "label": "Backpropagation",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-4",
+                        "label": "CNNs",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-5",
+                        "label": "RNNs",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-6",
+                        "label": "Reinforcement Learning",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-7",
+                        "label": "LSTMs",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-8",
+                        "label": "Fine-tuning",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-9",
+                        "label": "Feature Engineering",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "ml-10",
+                        "label": "Model Deployment",
+                        "type": "subtopic"
+                    }
                 ]
             }
         ]

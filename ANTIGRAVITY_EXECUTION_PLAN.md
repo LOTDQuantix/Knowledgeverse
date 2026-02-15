@@ -458,3 +458,241 @@ SUCCESS CRITERIA:
 - No FPS drop.
 - Transitions smooth.
 - No code duplication.
+
+PHASE 5: SYSTEM MATURITY
+
+OBJECTIVE:
+Stabilize engine for long-term scalability and future DevVerse expansion.
+
+============================================================
+1. NODE METADATA SUPPORT
+============================================================
+
+Extend node schema:
+
+- description?: string
+- tags?: string[]
+- difficulty?: number
+- energyLevel?: number
+
+Do not render UI yet.
+Just support in data model and typing.
+
+============================================================
+2. UNIVERSE MEMORY STATE
+============================================================
+
+Each universe maintains:
+
+- focusPath
+- navigationStack
+- currentDepth
+
+When switching universes:
+- Preserve previous state.
+- Restore state when returning.
+
+============================================================
+3. SCALABILITY VALIDATION
+============================================================
+
+- Test 100+ nodes.
+- 4 depth levels.
+- Orbit drift active.
+- Connection lines active.
+
+Ensure stable 60 FPS.
+
+Optimize if needed:
+- Memoization
+- Instancing
+- Controlled re-renders
+
+============================================================
+SUCCESS CRITERIA:
+
+- State restoration works.
+- No memory leak.
+- No frame drops.
+- Engine remains modular.
+
+PHASE 6: DEVVERSE LEARNING ENGINE (FOUNDATION)
+
+OBJECTIVE:
+Turn DevVerse into structured learning system.
+
+============================================================
+1. EXTEND NODE SCHEMA
+============================================================
+
+Add:
+
+- progress?: number (0–100)
+- completed?: boolean
+- resources?: string[]
+- repoLink?: string
+
+No UI yet.
+Just data structure.
+
+============================================================
+2. VISUAL PROGRESS INDICATOR (SUBTLE)
+============================================================
+
+- Node emissive intensity based on progress.
+- Completed nodes glow slightly stronger.
+- Optional faint ring around completed nodes.
+
+Do not add progress bars UI.
+
+============================================================
+3. DIFFICULTY VISUALIZATION
+============================================================
+
+Map difficulty (1–5) to:
+
+- Node size modifier
+OR
+- Slight color intensity shift.
+
+============================================================
+4. STATE PERSISTENCE (LOCAL)
+============================================================
+
+Store DevVerse progress in:
+
+localStorage.
+
+Restore on reload.
+
+============================================================
+SUCCESS CRITERIA:
+- GitHub learning branch exists.
+- Progress affects visuals.
+- No performance drop.
+
+PHASE 7: GITHUB INTEGRATION LAYER
+
+OBJECTIVE:
+Integrate GitHub repository metadata into DevVerse learning nodes.
+
+============================================================
+1. NODE SCHEMA EXTENSION
+============================================================
+
+Add:
+
+- githubRepo?: string
+- githubType?: "repo" | "org" | "user"
+
+============================================================
+2. CLOUDFLARE WORKER SETUP
+============================================================
+
+Create Worker endpoint:
+
+GET /github/repo/:name
+
+Worker must:
+- Use GitHub token from environment.
+- Fetch repo data from GitHub API.
+- Return simplified JSON:
+    - stars
+    - forks
+    - lastCommitDate
+    - openIssues
+- Cache response for 5 minutes.
+
+============================================================
+3. FRONTEND INTEGRATION
+============================================================
+
+When node with githubRepo is active:
+
+- Fetch repo metadata.
+- Store in local state.
+- Display minimal tooltip addition:
+    ⭐ Stars
+    🍴 Forks
+    🕒 Last commit
+
+Do NOT build a dashboard.
+Keep minimal.
+
+============================================================
+4. PERFORMANCE
+============================================================
+
+- Lazy load GitHub metadata only when node focused.
+- No prefetch for entire graph.
+- Avoid blocking render.
+
+============================================================
+SUCCESS CRITERIA:
+- GitHub data appears for relevant nodes.
+- No token leakage.
+- No performance degradation.
+- Works on Cloudflare deployment.
+
+PHASE 7: GITHUB INTEGRATION LAYER
+
+OBJECTIVE:
+Integrate GitHub repository metadata into DevVerse learning nodes.
+
+============================================================
+1. NODE SCHEMA EXTENSION
+============================================================
+
+Add:
+
+- githubRepo?: string
+- githubType?: "repo" | "org" | "user"
+
+============================================================
+2. CLOUDFLARE WORKER SETUP
+============================================================
+
+Create Worker endpoint:
+
+GET /github/repo/:name
+
+Worker must:
+- Use GitHub token from environment.
+- Fetch repo data from GitHub API.
+- Return simplified JSON:
+    - stars
+    - forks
+    - lastCommitDate
+    - openIssues
+- Cache response for 5 minutes.
+
+============================================================
+3. FRONTEND INTEGRATION
+============================================================
+
+When node with githubRepo is active:
+
+- Fetch repo metadata.
+- Store in local state.
+- Display minimal tooltip addition:
+    ⭐ Stars
+    🍴 Forks
+    🕒 Last commit
+
+Do NOT build a dashboard.
+Keep minimal.
+
+============================================================
+4. PERFORMANCE
+============================================================
+
+- Lazy load GitHub metadata only when node focused.
+- No prefetch for entire graph.
+- Avoid blocking render.
+
+============================================================
+SUCCESS CRITERIA:
+- GitHub data appears for relevant nodes.
+- No token leakage.
+- No performance degradation.
+- Works on Cloudflare deployment.

@@ -13,6 +13,7 @@ import { getChildPosition } from "@/lib/spatialMath";
 import { KnowledgeNode } from "@/types";
 import { useTheme } from "@/lib/ThemeContext";
 import { useProgress } from "@/lib/useProgress";
+import { useGitHubStats } from "@/lib/useGitHubStats";
 
 interface GraphSceneProps {
   data: KnowledgeNode | null;
@@ -21,8 +22,9 @@ interface GraphSceneProps {
 export default function GraphScene({ data }: GraphSceneProps) {
   const { mode, config, activeUniverse, setUniverse } = useTheme();
   const { progressMap } = useProgress();
+  const { statsMap, fetchStats } = useGitHubStats();
   const [ready, setReady] = useState(false);
-  
+
   // Persistent memory for each universe
   const [universeStates, setUniverseStates] = useState<Record<string, { path: string[], cameraTarget: [number, number, number] | null }>>({
     knowledgeverse: { path: [], cameraTarget: null },
@@ -35,13 +37,18 @@ export default function GraphScene({ data }: GraphSceneProps) {
   // Universe Entry Transition
   useEffect(() => {
     if (activeUniverse !== 'lobby') {
-        setReady(false);
-        const timer = setTimeout(() => setReady(true), 1500); // Wait for fly-in
-        return () => clearTimeout(timer);
+      setReady(false);
+      const timer = setTimeout(() => setReady(true), 1500); // Wait for fly-in
+      return () => clearTimeout(timer);
     }
   }, [activeUniverse]);
 
   const handleNodeClick = (node: KnowledgeNode, position: [number, number, number]) => {
+    // Trigger lazy-load of GitHub stats if repo exists
+    if (node.githubRepo) {
+      fetchStats(node.githubRepo);
+    }
+
     setUniverseStates((prev) => {
       const currentState = prev[activeUniverse] || { path: [], cameraTarget: null };
       const currentPath = currentState.path;
@@ -52,17 +59,17 @@ export default function GraphScene({ data }: GraphSceneProps) {
       } else {
         newPath = [...currentPath, node.id];
       }
-      return { 
-        ...prev, 
-        [activeUniverse]: { path: newPath, cameraTarget: position } 
+      return {
+        ...prev,
+        [activeUniverse]: { path: newPath, cameraTarget: position }
       };
     });
   };
 
   const setPath = (newPath: string[]) => {
     setUniverseStates(prev => ({
-        ...prev,
-        [activeUniverse]: { ...prev[activeUniverse], path: newPath }
+      ...prev,
+      [activeUniverse]: { ...prev[activeUniverse], path: newPath }
     }));
   };
 
@@ -72,9 +79,9 @@ export default function GraphScene({ data }: GraphSceneProps) {
   const FloatingGroup = ({ children, speed = 0.1, depth }: { children: React.ReactNode, speed?: number, depth: number }) => {
     const groupRef = useRef<Group>(null);
     useFrame((state, delta) => {
-        if (groupRef.current) {
-            groupRef.current.rotation.y += delta * speed * (1 / (depth + 1));
-        }
+      if (groupRef.current) {
+        groupRef.current.rotation.y += delta * speed * (1 / (depth + 1));
+      }
     });
     return <group ref={groupRef}>{children}</group>;
   };
@@ -105,6 +112,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
       }
 
       const nodeProgress = progressMap[node.id] || { progress: node.progress || 0, completed: node.completed || false };
+      const githubStats = node.githubRepo ? statsMap[node.githubRepo] : undefined;
 
       elements.push(
         <NodeMesh
@@ -117,6 +125,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
           difficulty={node.difficulty}
           progress={nodeProgress.progress}
           completed={nodeProgress.completed}
+          githubStats={githubStats}
           onClick={() => handleNodeClick(node, parentPos)}
         />
       );
@@ -126,17 +135,17 @@ export default function GraphScene({ data }: GraphSceneProps) {
         children.forEach((child, index) => {
           const childRadius = depth === 0 ? 40 : 15 / depth;
           const childPos = getChildPosition(parentPos, index, children.length, childRadius);
-          
+
           if (opacity > 0.5) {
             childElements.push(
-               <Line
-                 key={`line-${child.id}`}
-                 points={[parentPos, childPos]}
-                 color={config.primaryNodeColor}
-                 lineWidth={0.5}
-                 transparent
-                 opacity={0.3}
-               />
+              <Line
+                key={`line-${child.id}`}
+                points={[parentPos, childPos]}
+                color={config.primaryNodeColor}
+                lineWidth={0.5}
+                transparent
+                opacity={0.3}
+              />
             );
           }
 
@@ -144,9 +153,9 @@ export default function GraphScene({ data }: GraphSceneProps) {
         });
 
         elements.push(
-            <FloatingGroup key={`group-${node.id}`} depth={depth} speed={0.05}>
-                {childElements}
-            </FloatingGroup>
+          <FloatingGroup key={`group-${node.id}`} depth={depth} speed={0.05}>
+            {childElements}
+          </FloatingGroup>
         );
       }
     }
@@ -157,7 +166,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
   const graphElements = useMemo(() => {
     if (!data) return null;
     return renderTree(data);
-  }, [data, path, config.primaryNodeColor, ready, progressMap]);
+  }, [data, path, config.primaryNodeColor, ready, progressMap, statsMap]);
 
   const activeNodeSize = useMemo(() => {
     if (path.length === 0) return 5;
@@ -177,21 +186,21 @@ export default function GraphScene({ data }: GraphSceneProps) {
 
         <Suspense fallback={null}>
           {mode === "night" && (
-            <Stars 
-              radius={300} 
-              depth={50} 
-              count={(config as any).starCount || 5000} 
-              factor={4} 
-              saturation={0} 
-              fade 
-              speed={1} 
+            <Stars
+              radius={300}
+              depth={50}
+              count={(config as any).starCount || 5000}
+              factor={4}
+              saturation={0}
+              fade
+              speed={1}
             />
           )}
           <OrbitControls makeDefault enablePan={true} enableZoom={true} enableRotate={true} />
 
-          <CameraController 
-            targetPosition={cameraTarget} 
-            reset={path.length === 0 && activeUniverse !== 'lobby'} 
+          <CameraController
+            targetPosition={cameraTarget}
+            reset={path.length === 0 && activeUniverse !== 'lobby'}
             targetSize={activeNodeSize}
           />
 
@@ -199,7 +208,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
             <UniverseSelector onSelect={(id) => setUniverse(id)} />
           ) : (
             <group>
-                {graphElements}
+              {graphElements}
             </group>
           )}
         </Suspense>

@@ -14,6 +14,11 @@ interface NodeMeshProps {
   difficulty?: number;
   progress?: number;
   completed?: boolean;
+  githubStats?: {
+    stars: number;
+    forks: number;
+    lastCommitDate: string;
+  };
   onClick?: () => void;
 }
 
@@ -26,6 +31,7 @@ export default function NodeMesh({
   difficulty = 1,
   progress = 0,
   completed = false,
+  githubStats,
   onClick
 }: NodeMeshProps) {
   const meshRef = useRef<Mesh>(null);
@@ -101,13 +107,22 @@ export default function NodeMesh({
       {label && (hovered || opacity > 0.5) && (
         <Html distanceFactor={100} position={[0, finalSize + 2, 0]} center pointerEvents="none">
           <div className="bg-black/50 border border-white/20 backdrop-blur-md px-3 py-1 rounded text-white text-xs whitespace-nowrap opacity-100 transition-opacity pointer-events-none flex flex-col items-center gap-1">
-            <span>{label}</span>
+            <span className="font-semibold">{label}</span>
+            
+            {githubStats && (
+              <div className="flex items-center gap-3 text-[10px] text-white/80 py-1 border-t border-white/10 mt-1 w-full justify-center">
+                <span className="flex items-center gap-1">⭐ {githubStats.stars}</span>
+                <span className="flex items-center gap-1">🍴 {githubStats.forks}</span>
+                <span className="flex items-center gap-1 opacity-60">🕒 {new Date(githubStats.lastCommitDate).toLocaleDateString()}</span>
+              </div>
+            )}
+
             {progress > 0 && !completed && (
               <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
                 <div className="h-full bg-white/60" style={{ width: `${progress}%` }} />
               </div>
             )}
-            {completed && <span className="text-[10px] text-green-400">Completed</span>}
+            {completed && <span className="text-[10px] text-green-400">Completed Mastery</span>}
           </div>
         </Html>
       )}
