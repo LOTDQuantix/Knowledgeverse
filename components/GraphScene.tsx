@@ -13,7 +13,6 @@ import { getChildPosition } from "@/lib/spatialMath";
 import { KnowledgeNode } from "@/types";
 import { useTheme } from "@/lib/ThemeContext";
 import { useProgress } from "@/lib/useProgress";
-import { useGitHubStats } from "@/lib/useGitHubStats";
 
 interface GraphSceneProps {
   data: KnowledgeNode | null;
@@ -22,14 +21,12 @@ interface GraphSceneProps {
 export default function GraphScene({ data }: GraphSceneProps) {
   const { mode, config, activeUniverse, setUniverse } = useTheme();
   const { progressMap } = useProgress();
-  const { statsMap, fetchStats } = useGitHubStats();
   const [ready, setReady] = useState(false);
 
   // Persistent memory for each universe
   const [universeStates, setUniverseStates] = useState<Record<string, { path: string[], cameraTarget: [number, number, number] | null }>>({
     knowledgeverse: { path: [], cameraTarget: null },
     profileverse: { path: [], cameraTarget: null },
-    devverse: { path: [], cameraTarget: null },
   });
 
   const { path, cameraTarget } = universeStates[activeUniverse] || { path: [], cameraTarget: null };
@@ -44,10 +41,6 @@ export default function GraphScene({ data }: GraphSceneProps) {
   }, [activeUniverse]);
 
   const handleNodeClick = (node: KnowledgeNode, position: [number, number, number]) => {
-    // Trigger lazy-load of GitHub stats if repo exists
-    if (node.githubRepo) {
-      fetchStats(node.githubRepo);
-    }
 
     setUniverseStates((prev) => {
       const currentState = prev[activeUniverse] || { path: [], cameraTarget: null };
@@ -112,7 +105,6 @@ export default function GraphScene({ data }: GraphSceneProps) {
       }
 
       const nodeProgress = progressMap[node.id] || { progress: node.progress || 0, completed: node.completed || false };
-      const githubStats = node.githubRepo ? statsMap[node.githubRepo] : undefined;
 
       elements.push(
         <NodeMesh
@@ -125,7 +117,6 @@ export default function GraphScene({ data }: GraphSceneProps) {
           difficulty={node.difficulty}
           progress={nodeProgress.progress}
           completed={nodeProgress.completed}
-          githubStats={githubStats}
           onClick={() => handleNodeClick(node, parentPos)}
         />
       );
@@ -166,7 +157,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
   const graphElements = useMemo(() => {
     if (!data) return null;
     return renderTree(data);
-  }, [data, path, config.primaryNodeColor, ready, progressMap, statsMap]);
+  }, [data, path, config.primaryNodeColor, ready, progressMap]);
 
   const activeNodeSize = useMemo(() => {
     if (path.length === 0) return 5;

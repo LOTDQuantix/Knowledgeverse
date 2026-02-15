@@ -21,6 +21,91 @@
         "description": "The application of scientific knowledge.",
         "importance_weight": 0.9,
         "children": []
+      },
+      {
+        "id": "algorithms",
+        "label": "Algorithms",
+        "type": "topic",
+        "children": [
+          {
+            "id": "sort-1",
+            "label": "QuickSort",
+            "type": "subtopic",
+            "difficulty": 4,
+            "progress": 75
+          },
+          {
+            "id": "sort-2",
+            "label": "MergeSort",
+            "type": "subtopic",
+            "difficulty": 3,
+            "completed": true
+          },
+          {
+            "id": "sort-3",
+            "label": "InsertionSort",
+            "type": "subtopic"
+          },
+          {
+            "id": "sort-4",
+            "label": "BubbleSort",
+            "type": "subtopic"
+          },
+          {
+            "id": "sort-5",
+            "label": "HeapSort",
+            "type": "subtopic"
+          }
+        ]
+      },
+      {
+        "id": "data-structures",
+        "label": "Data Structures",
+        "type": "topic",
+        "children": [
+          {
+            "id": "ds-1",
+            "label": "Linked List",
+            "type": "subtopic"
+          },
+          {
+            "id": "ds-2",
+            "label": "Stack",
+            "type": "subtopic"
+          },
+          {
+            "id": "ds-3",
+            "label": "Queue",
+            "type": "subtopic"
+          },
+          {
+            "id": "ds-4",
+            "label": "Binary Search Tree",
+            "type": "subtopic"
+          }
+        ]
+      },
+      {
+        "id": "system-design",
+        "label": "System Design",
+        "type": "topic",
+        "children": [
+          {
+            "id": "sd-1",
+            "label": "Load Balancing",
+            "type": "subtopic"
+          },
+          {
+            "id": "sd-2",
+            "label": "Caching",
+            "type": "subtopic"
+          },
+          {
+            "id": "sd-3",
+            "label": "Sharding",
+            "type": "subtopic"
+          }
+        ]
       }
     ]
   }

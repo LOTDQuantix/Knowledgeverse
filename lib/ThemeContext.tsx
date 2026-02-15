@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { ThemeMode, ThemeConfig, themes } from "@/styles/theme";
 
-export type UniverseId = 'lobby' | 'knowledgeverse' | 'profileverse' | 'devverse';
+export type UniverseId = 'lobby' | 'knowledgeverse' | 'profileverse';
 
 interface ThemeContextType {
   mode: ThemeMode;
@@ -19,7 +19,6 @@ const universeThemes: Record<UniverseId, { color: string; glow: string; stars?: 
   lobby: { color: '#FFFFFF', glow: '#FFFFFF', stars: 5000 },
   knowledgeverse: { color: '#4A90E2', glow: '#00FFFF', stars: 8000 },
   profileverse: { color: '#FF69B4', glow: '#FFFFFF', stars: 3000 },
-  devverse: { color: '#00FF41', glow: '#00FF41', stars: 10000 },
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

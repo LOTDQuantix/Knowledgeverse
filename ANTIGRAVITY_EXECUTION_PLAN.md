@@ -696,3 +696,55 @@ SUCCESS CRITERIA:
 - No token leakage.
 - No performance degradation.
 - Works on Cloudflare deployment.
+
+REFACTOR: STRUCTURE CLEANUP
+
+OBJECTIVE:
+Simplify universe structure and align with project vision.
+
+============================================================
+1. REMOVE DEVVERSE
+============================================================
+
+- Delete devverse.json.
+- Remove DevVerse universe from lobby.
+- Merge its nodes into knowledgeverse.json under:
+    "Git & GitHub"
+    "System Design"
+    "Algorithms"
+    etc.
+
+============================================================
+2. RENAME MAIN UNIVERSE
+============================================================
+
+Ensure:
+- Only one learning universe: KnowledgeVerse.
+- ProfileVerse remains separate.
+
+============================================================
+3. REMOVE GITHUB API LAYER
+============================================================
+
+- Delete /api/github route.
+- Remove useGitHubStats hook.
+- Remove GitHub metadata tooltips.
+- Remove server-side token usage.
+
+============================================================
+4. PRESERVE LEARNING ENGINE
+============================================================
+
+Keep:
+- progress
+- difficulty
+- energyLevel
+- completion rings
+- localStorage persistence
+
+============================================================
+SUCCESS CRITERIA:
+- Only 2 universes visible in Lobby.
+- KnowledgeVerse contains Git & GitHub as conceptual branch.
+- No backend/API logic remains.
+- Clean build.
