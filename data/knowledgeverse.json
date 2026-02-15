@@ -1,0 +1,27 @@
+[
+  {
+    "id": "root",
+    "label": "KnowledgeVerse",
+    "type": "domain",
+    "description": "The central domain of all knowledge.",
+    "importance_weight": 1.0,
+    "children": [
+      {
+        "id": "science",
+        "label": "Science",
+        "type": "domain",
+        "description": "The study of the natural world.",
+        "importance_weight": 0.9,
+        "children": []
+      },
+      {
+        "id": "technology",
+        "label": "Technology",
+        "type": "domain",
+        "description": "The application of scientific knowledge.",
+        "importance_weight": 0.9,
+        "children": []
+      }
+    ]
+  }
+]

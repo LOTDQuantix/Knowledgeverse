@@ -1,0 +1,54 @@
+[
+    {
+        "id": "profile-root",
+        "label": "Pruthvish Ghedia",
+        "type": "domain",
+        "description": "The personal universe of Pruthvish.",
+        "importance_weight": 1.0,
+        "children": [
+            {
+                "id": "about",
+                "label": "About Me",
+                "type": "topic",
+                "description": "Creative Developer & 3D Enthusiast.",
+                "children": []
+            },
+            {
+                "id": "projects",
+                "label": "Projects",
+                "type": "topic",
+                "description": "A collection of my work.",
+                "children": [
+                    {
+                        "id": "knowledgeverse-proj",
+                        "label": "KnowledgeVerse",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "debate-club",
+                        "label": "Debate Club",
+                        "type": "subtopic"
+                    }
+                ]
+            },
+            {
+                "id": "skills",
+                "label": "Skills",
+                "type": "topic",
+                "description": "Technical stack and expertise.",
+                "children": [
+                    {
+                        "id": "frontend",
+                        "label": "Frontend (React, Next.js)",
+                        "type": "subtopic"
+                    },
+                    {
+                        "id": "threejs",
+                        "label": "3D (Three.js, R3F)",
+                        "type": "subtopic"
+                    }
+                ]
+            }
+        ]
+    }
+]
