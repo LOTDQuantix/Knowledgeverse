@@ -1,7 +1,7 @@
 "use client";
 
-import { useThree, useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useThree } from "@react-three/fiber";
+import { useEffect } from "react";
 import gsap from "gsap";
 import { Vector3 } from "three";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";

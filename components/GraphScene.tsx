@@ -151,7 +151,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
   const graphElements = useMemo(() => {
     if (!data) return null;
     return renderTree(data);
-  }, [data, path, config.primaryNodeColor, ready]);
+  }, [data, path, config.primaryNodeColor, ready, renderTree]);
 
   const activeNodeSize = useMemo(() => {
     if (path.length === 0) return 5;
@@ -175,7 +175,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
             <Stars 
               radius={300} 
               depth={50} 
-              count={(config as any).starCount || 5000} 
+              count={(config as { starCount?: number }).starCount || 5000} 
               factor={4} 
               saturation={0} 
               fade 

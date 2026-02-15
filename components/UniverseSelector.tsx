@@ -9,7 +9,7 @@ interface UniverseSelectorProps {
 }
 
 export default function UniverseSelector({ onSelect }: UniverseSelectorProps) {
-    const { mode } = useTheme();
+    const { mode: _mode } = useTheme(); // Prefixed with _ to keep it if needed, or just remove.
 
     const universes: { id: UniverseId; label: string; color: string; pos: [number, number, number] }[] = [
         { id: 'knowledgeverse', label: "KnowledgeVerse", color: '#4A90E2', pos: [-40, 0, 0] },

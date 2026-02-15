@@ -33,7 +33,7 @@ export default function NodeMesh({ position, color, size = 1, label, opacity = 1
       meshRef.current.scale.lerp({ x: targetScale, y: targetScale, z: targetScale }, 0.1);
 
       if (meshRef.current.material) {
-        // @ts-ignore
+        // @ts-expect-error - material might not have opacity property depending on type
         meshRef.current.material.opacity = meshRef.current.material.opacity + (opacity - meshRef.current.material.opacity) * 0.1;
       }
     }
@@ -52,7 +52,7 @@ export default function NodeMesh({ position, color, size = 1, label, opacity = 1
           setHover(true);
           document.body.style.cursor = "pointer";
         }}
-        onPointerOut={(e) => {
+        onPointerOut={() => {
           setHover(false);
           document.body.style.cursor = "auto";
         }}
