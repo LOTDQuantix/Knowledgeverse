@@ -13,12 +13,16 @@
                     {
                         "id": "sort-1",
                         "label": "QuickSort",
-                        "type": "subtopic"
+                        "type": "subtopic",
+                        "difficulty": 4,
+                        "progress": 75
                     },
                     {
                         "id": "sort-2",
                         "label": "MergeSort",
-                        "type": "subtopic"
+                        "type": "subtopic",
+                        "difficulty": 3,
+                        "completed": true
                     },
                     {
                         "id": "sort-3",

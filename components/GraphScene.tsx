@@ -12,6 +12,7 @@ import UniverseSelector from "./UniverseSelector";
 import { getChildPosition } from "@/lib/spatialMath";
 import { KnowledgeNode } from "@/types";
 import { useTheme } from "@/lib/ThemeContext";
+import { useProgress } from "@/lib/useProgress";
 
 interface GraphSceneProps {
   data: KnowledgeNode | null;
@@ -19,6 +20,7 @@ interface GraphSceneProps {
 
 export default function GraphScene({ data }: GraphSceneProps) {
   const { mode, config, activeUniverse, setUniverse } = useTheme();
+  const { progressMap } = useProgress();
   const [ready, setReady] = useState(false);
   
   // Persistent memory for each universe
@@ -102,6 +104,8 @@ export default function GraphScene({ data }: GraphSceneProps) {
         }
       }
 
+      const nodeProgress = progressMap[node.id] || { progress: node.progress || 0, completed: node.completed || false };
+
       elements.push(
         <NodeMesh
           key={node.id}
@@ -110,6 +114,9 @@ export default function GraphScene({ data }: GraphSceneProps) {
           size={size}
           label={node.label}
           opacity={opacity}
+          difficulty={node.difficulty}
+          progress={nodeProgress.progress}
+          completed={nodeProgress.completed}
           onClick={() => handleNodeClick(node, parentPos)}
         />
       );
@@ -120,7 +127,6 @@ export default function GraphScene({ data }: GraphSceneProps) {
           const childRadius = depth === 0 ? 40 : 15 / depth;
           const childPos = getChildPosition(parentPos, index, children.length, childRadius);
           
-          // Connection Lines
           if (opacity > 0.5) {
             childElements.push(
                <Line
@@ -151,11 +157,10 @@ export default function GraphScene({ data }: GraphSceneProps) {
   const graphElements = useMemo(() => {
     if (!data) return null;
     return renderTree(data);
-  }, [data, path, config.primaryNodeColor, ready]);
+  }, [data, path, config.primaryNodeColor, ready, progressMap]);
 
   const activeNodeSize = useMemo(() => {
     if (path.length === 0) return 5;
-    // We'd need to find the node size, for now rough estimate based on depth
     const depth = path.length;
     if (depth === 1) return 3;
     if (depth === 2) return 2;
@@ -200,7 +205,6 @@ export default function GraphScene({ data }: GraphSceneProps) {
         </Suspense>
       </Canvas>
 
-      {/* Breadcrumbs for active universe */}
       {activeUniverse !== 'lobby' && (
         <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white backdrop-blur-xl transition-all">
           <button

@@ -10,4 +10,8 @@ export interface KnowledgeNode {
   energyLevel?: number;
   importance_weight?: number;
   children?: KnowledgeNode[];
+  progress?: number;
+  completed?: boolean;
+  resources?: string[];
+  repoLink?: string;
 }
