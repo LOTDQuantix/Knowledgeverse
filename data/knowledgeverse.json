@@ -10,6 +10,7 @@
         "id": "science",
         "label": "Science",
         "type": "domain",
+        "track": "General Theory",
         "description": "The study of the natural world.",
         "importance_weight": 0.9,
         "children": []
@@ -18,19 +19,67 @@
         "id": "technology",
         "label": "Technology",
         "type": "domain",
+        "track": "General Theory",
         "description": "The application of scientific knowledge.",
         "importance_weight": 0.9,
-        "children": []
+        "children": [
+          {
+            "id": "git-core",
+            "label": "Git Mastery",
+            "type": "topic",
+            "track": "Git Mastery",
+            "children": [
+              {
+                "id": "git-commit-node",
+                "label": "The Local Commit",
+                "type": "interactive",
+                "contentType": "simulation",
+                "contentId": "git-commit",
+                "track": "Git Mastery",
+                "difficulty": 2,
+                "description": "Visualize the three-stage architecture of Git: Working Directory, Staging Area, and Local Repo."
+              },
+              {
+                "id": "git-branch-node",
+                "label": "Branching & Merging",
+                "type": "interactive",
+                "contentType": "simulation",
+                "contentId": "git-branch",
+                "track": "Git Mastery",
+                "difficulty": 4,
+                "prerequisites": [
+                  "git-commit-node"
+                ],
+                "description": "Learn how Git manages independent lines of history for feature development."
+              },
+              {
+                "id": "git-conflict-node",
+                "label": "Conflict Resolution",
+                "type": "interactive",
+                "contentType": "simulation",
+                "contentId": "git-conflict",
+                "track": "Git Mastery",
+                "difficulty": 5,
+                "prerequisites": [
+                  "git-branch-node"
+                ],
+                "description": "Hands-on lab for solving merge conflicts in a controlled environment."
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "algorithms",
         "label": "Algorithms",
         "type": "topic",
+        "track": "Computer Science",
         "children": [
           {
             "id": "sort-1",
             "label": "QuickSort",
             "type": "subtopic",
+            "track": "Computer Science",
             "difficulty": 4,
             "progress": 75
           },
@@ -38,30 +87,42 @@
             "id": "sort-2",
             "label": "MergeSort",
             "type": "subtopic",
+            "track": "Computer Science",
             "difficulty": 3,
             "completed": true
           },
           {
             "id": "sort-3",
             "label": "InsertionSort",
-            "type": "subtopic"
+            "type": "subtopic",
+            "track": "Computer Science"
           },
           {
             "id": "sort-4",
             "label": "BubbleSort",
-            "type": "subtopic"
+            "type": "subtopic",
+            "track": "Computer Science"
           },
           {
             "id": "sort-5",
             "label": "HeapSort",
-            "type": "subtopic"
+            "type": "subtopic",
+            "track": "Computer Science",
+            "prerequisites": [
+              "sort-2"
+            ]
           },
           {
             "id": "algo-quiz",
             "label": "Sorting Algorithm Quiz",
             "type": "interactive",
             "contentType": "quiz",
-            "difficulty": 3
+            "difficulty": 3,
+            "track": "Computer Science",
+            "prerequisites": [
+              "sort-1",
+              "sort-2"
+            ]
           }
         ]
       },

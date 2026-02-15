@@ -40,5 +40,17 @@ export function useProgress() {
         });
     };
 
-    return { progressMap, updateProgress };
+    const isPrerequisiteMet = (prerequisites?: string[]) => {
+        if (!prerequisites || prerequisites.length === 0) return true;
+        return prerequisites.every(id => progressMap[id]?.completed);
+    };
+
+    const getTrackProgress = (trackName: string, allNodes: any[]) => {
+        const trackNodes = allNodes.filter(n => n.track === trackName);
+        if (trackNodes.length === 0) return 0;
+        const completedCount = trackNodes.filter(n => progressMap[n.id]?.completed).length;
+        return (completedCount / trackNodes.length) * 100;
+    };
+
+    return { progressMap, updateProgress, isPrerequisiteMet, getTrackProgress };
 }

@@ -14,6 +14,10 @@ export interface KnowledgeNode {
   completed?: boolean;
   resources?: string[];
   repoLink?: string;
-  contentType?: 'text' | 'video' | 'quiz';
+  contentType?: 'text' | 'video' | 'quiz' | 'simulation';
   contentId?: string;
+  prerequisites?: string[];
+  recommendedNext?: string[];
+  learningOrder?: number;
+  track?: string;
 }

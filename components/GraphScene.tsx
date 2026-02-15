@@ -21,7 +21,7 @@ interface GraphSceneProps {
 
 export default function GraphScene({ data }: GraphSceneProps) {
   const { mode, config, activeUniverse, setUniverse } = useTheme();
-  const { progressMap, updateProgress } = useProgress();
+  const { progressMap, updateProgress, isPrerequisiteMet } = useProgress();
   const [ready, setReady] = useState(false);
   const [activeInteractiveNode, setActiveInteractiveNode] = useState<KnowledgeNode | null>(null);
 
@@ -110,6 +110,8 @@ export default function GraphScene({ data }: GraphSceneProps) {
       }
 
       const nodeProgress = progressMap[node.id] || { progress: node.progress || 0, completed: node.completed || false };
+      const isLocked = !isPrerequisiteMet(node.prerequisites);
+      const isTracked = !!node.track; // In future, this could be filtered by an "Active Track" state
 
       elements.push(
         <NodeMesh
@@ -122,7 +124,9 @@ export default function GraphScene({ data }: GraphSceneProps) {
           difficulty={node.difficulty}
           progress={nodeProgress.progress}
           completed={nodeProgress.completed}
-          onActivate={node.type === 'interactive' || node.contentType === 'quiz' ? () => setActiveInteractiveNode(node) : undefined}
+          isLocked={isLocked}
+          isTracked={isTracked}
+          onActivate={node.type === 'interactive' || node.contentType === 'quiz' || node.type === 'concept' ? () => setActiveInteractiveNode(node) : undefined}
           onClick={() => handleNodeClick(node, parentPos)}
         />
       );

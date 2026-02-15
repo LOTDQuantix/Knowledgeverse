@@ -3,6 +3,8 @@
 import React from "react";
 import { KnowledgeNode } from "@/types";
 import QuizView from "@/components/QuizView";
+import SimulationHost from "@/components/SimulationHost";
+import { useProgress } from "@/lib/useProgress";
 
 interface InteractivePanelProps {
     node: KnowledgeNode;
@@ -11,6 +13,7 @@ interface InteractivePanelProps {
 }
 
 export default function InteractivePanel({ node, onClose, onProgressUpdate }: InteractivePanelProps) {
+    const { progressMap } = useProgress();
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 pointer-events-none">
             <div
@@ -39,6 +42,15 @@ export default function InteractivePanel({ node, onClose, onProgressUpdate }: In
                 <div className="p-8 overflow-y-auto max-h-[70vh] custom-scrollbar">
                     {node.contentType === 'quiz' ? (
                         <QuizView
+                            node={node}
+                            onComplete={(success: boolean) => {
+                                if (success) {
+                                    onProgressUpdate(node.id, 100, true);
+                                }
+                            }}
+                        />
+                    ) : node.contentType === 'simulation' ? (
+                        <SimulationHost
                             node={node}
                             onComplete={(success: boolean) => {
                                 if (success) {
@@ -83,6 +95,16 @@ export default function InteractivePanel({ node, onClose, onProgressUpdate }: In
                     >
                         Return to Graph
                     </button>
+                    {node.type === 'concept' && !progressMap[node.id]?.completed && (
+                        <button
+                            onClick={() => {
+                                onProgressUpdate(node.id, 100, true);
+                            }}
+                            className="ml-2 px-6 py-2 bg-green-500 text-white font-semibold rounded-full hover:bg-green-600 transition-all text-sm"
+                        >
+                            Mark Mastery
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

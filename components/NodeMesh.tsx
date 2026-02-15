@@ -19,6 +19,8 @@ interface NodeMeshProps {
     forks: number;
     lastCommitDate: string;
   };
+  isLocked?: boolean;
+  isTracked?: boolean;
   onActivate?: () => void;
   onClick?: () => void;
 }
@@ -33,6 +35,8 @@ export default function NodeMesh({
   progress = 0,
   completed = false,
   githubStats,
+  isLocked = false,
+  isTracked = false,
   onActivate,
   onClick
 }: NodeMeshProps) {
@@ -88,15 +92,23 @@ export default function NodeMesh({
       >
         <sphereGeometry args={[finalSize, 32, 32]} />
         <meshStandardMaterial
-          color={color}
+          color={isLocked ? "#444444" : color}
           transparent={true}
           opacity={opacity}
-          emissive={color}
-          emissiveIntensity={hovered ? 0.8 : finalEmissiveIntensity}
+          emissive={isTracked ? "#FFFFFF" : isLocked ? "#222222" : color}
+          emissiveIntensity={hovered ? 0.8 : isTracked ? 0.6 : finalEmissiveIntensity}
           roughness={0.2}
           metalness={0.8}
         />
       </mesh>
+
+      {/* Track Ring */}
+      {isTracked && opacity > 0.5 && (
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[finalSize + 0.2, finalSize + 0.3, 32]} />
+          <meshBasicMaterial color="#FFD700" transparent opacity={0.6 * opacity} side={2} />
+        </mesh>
+      )}
 
       {/* Completion Halo Ring */}
       {completed && opacity > 0.5 && (
@@ -109,7 +121,9 @@ export default function NodeMesh({
       {label && (hovered || opacity > 0.5) && (
         <Html distanceFactor={100} position={[0, finalSize + 2, 0]} center pointerEvents="none">
           <div className="bg-black/50 border border-white/20 backdrop-blur-md px-3 py-1 rounded text-white text-xs whitespace-nowrap opacity-100 transition-opacity pointer-events-none flex flex-col items-center gap-1">
-            <span className="font-semibold">{label}</span>
+            <span className="font-semibold flex items-center gap-1">
+              {label} {isLocked && <span title="Prerequisites not met">🔒</span>}
+            </span>
 
             {githubStats && (
               <div className="flex items-center gap-3 text-[10px] text-white/80 py-1 border-t border-white/10 mt-1 w-full justify-center">
@@ -127,7 +141,7 @@ export default function NodeMesh({
             {completed && <span className="text-[10px] text-green-400">Completed Mastery</span>}
 
             {onActivate && (hovered) && (
-              <button 
+              <button
                 onClick={(e) => {
                   e.stopPropagation();
                   onActivate();
