@@ -748,3 +748,177 @@ SUCCESS CRITERIA:
 - KnowledgeVerse contains Git & GitHub as conceptual branch.
 - No backend/API logic remains.
 - Clean build.
+
+PHASE 8: INTERACTIVE LEARNING CORE
+
+OBJECTIVE:
+Introduce interactive node types without breaking spatial engine.
+
+============================================================
+1. NODE TYPE EXTENSION
+============================================================
+
+Add new node types:
+- concept
+- interactive
+- project
+
+Add contentType and contentId fields.
+
+============================================================
+2. INTERACTIVE PANEL SYSTEM
+============================================================
+
+When interactive node is activated:
+
+- Freeze camera orbit.
+- Slight background blur.
+- Open floating content panel.
+- Allow exit back to graph.
+
+No route change.
+
+============================================================
+3. QUIZ ENGINE (PHASE 8A)
+============================================================
+
+Implement minimal quiz system:
+
+- Multiple choice.
+- Correct/incorrect feedback.
+- Progress update.
+- Persist in localStorage.
+
+============================================================
+4. PERFORMANCE
+============================================================
+
+- Lazy load interactive modules.
+- Keep 3D engine mounted.
+- No FPS drop when panel closed.
+
+============================================================
+SUCCESS CRITERIA:
+- Interactive node opens panel.
+- Quiz works.
+- Progress updates.
+- 3D scene remains stable.
+
+PHASE 8B: HYBRID PROGRESSION SYSTEM
+
+OBJECTIVE:
+Implement structured but non-restrictive learning progression.
+
+============================================================
+1. NODE SCHEMA EXTENSION
+============================================================
+
+Add:
+- prerequisites?: string[]
+- recommendedNext?: string[]
+- learningOrder?: number
+- track?: string
+
+============================================================
+2. VISUAL GUIDANCE
+============================================================
+
+If node in active track:
+- Add subtle glow.
+
+If prerequisites incomplete:
+- Slight desaturation.
+- Small lock icon overlay.
+- Still clickable.
+
+============================================================
+3. TRACK PROGRESS
+============================================================
+
+Calculate:
+- Completion % per track.
+- Store in localStorage.
+
+============================================================
+4. COMPLETION RULES
+============================================================
+
+Concept node:
+- Manual mark complete.
+
+Quiz node:
+- Auto complete on pass threshold.
+
+Interactive node:
+- Complete on task success.
+
+============================================================
+SUCCESS CRITERIA:
+- Hybrid progression works.
+- No hard locking.
+- Visual guidance subtle.
+- No performance degradation.
+
+PHASE 9: INTERACTIVE SIMULATION ENGINE
+
+OBJECTIVE:
+Create reusable simulation container and implement 3 Git simulations.
+
+============================================================
+1. SIMULATION HOST
+============================================================
+
+Create SimulationHost component:
+- Receives contentId.
+- Lazy loads correct simulation.
+- Handles mount/unmount.
+- Keeps 3D scene mounted behind.
+
+============================================================
+2. GIT COMMIT SIMULATION
+============================================================
+
+Features:
+- Add file.
+- Stage file.
+- Commit file.
+- Show commit node in visual tree.
+- Reset option.
+
+No real git execution.
+Pure simulated state.
+
+============================================================
+3. BRANCHING VISUALIZER
+============================================================
+
+Features:
+- Create branch.
+- Switch branch.
+- Make commits.
+- Merge branch.
+- Visual tree updates dynamically.
+
+============================================================
+4. MERGE CONFLICT SIMULATION
+============================================================
+
+Features:
+- Predefined conflict scenario.
+- Show diff.
+- User resolves conflict.
+- Show correct resolution feedback.
+
+============================================================
+5. PERFORMANCE
+============================================================
+
+- Simulations mounted only when active.
+- No blocking render.
+- Clean unmount on exit.
+
+============================================================
+SUCCESS CRITERIA:
+- All 3 simulations functional.
+- 3D engine unaffected.
+- State isolated per simulation.

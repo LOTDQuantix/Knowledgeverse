@@ -55,6 +55,13 @@
             "id": "sort-5",
             "label": "HeapSort",
             "type": "subtopic"
+          },
+          {
+            "id": "algo-quiz",
+            "label": "Sorting Algorithm Quiz",
+            "type": "interactive",
+            "contentType": "quiz",
+            "difficulty": 3
           }
         ]
       },

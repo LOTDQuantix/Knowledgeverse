@@ -1,4 +1,4 @@
-export type NodeType = 'domain' | 'topic' | 'subtopic' | 'blog';
+export type NodeType = 'domain' | 'topic' | 'subtopic' | 'blog' | 'concept' | 'interactive' | 'project';
 
 export interface KnowledgeNode {
   id: string;
@@ -14,4 +14,6 @@ export interface KnowledgeNode {
   completed?: boolean;
   resources?: string[];
   repoLink?: string;
+  contentType?: 'text' | 'video' | 'quiz';
+  contentId?: string;
 }

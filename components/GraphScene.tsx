@@ -13,6 +13,7 @@ import { getChildPosition } from "@/lib/spatialMath";
 import { KnowledgeNode } from "@/types";
 import { useTheme } from "@/lib/ThemeContext";
 import { useProgress } from "@/lib/useProgress";
+import InteractivePanel from "./InteractivePanel";
 
 interface GraphSceneProps {
   data: KnowledgeNode | null;
@@ -20,8 +21,9 @@ interface GraphSceneProps {
 
 export default function GraphScene({ data }: GraphSceneProps) {
   const { mode, config, activeUniverse, setUniverse } = useTheme();
-  const { progressMap } = useProgress();
+  const { progressMap, updateProgress } = useProgress();
   const [ready, setReady] = useState(false);
+  const [activeInteractiveNode, setActiveInteractiveNode] = useState<KnowledgeNode | null>(null);
 
   // Persistent memory for each universe
   const [universeStates, setUniverseStates] = useState<Record<string, { path: string[], cameraTarget: [number, number, number] | null }>>({
@@ -92,6 +94,9 @@ export default function GraphScene({ data }: GraphSceneProps) {
         case "topic": size = 2; break;
         case "subtopic": size = 1; break;
         case "blog": size = 0.5; break;
+        case "concept": size = 0.8; break;
+        case "interactive": size = 1.2; break;
+        case "project": size = 1.5; break;
       }
       if (isRoot) size = 5;
 
@@ -117,6 +122,7 @@ export default function GraphScene({ data }: GraphSceneProps) {
           difficulty={node.difficulty}
           progress={nodeProgress.progress}
           completed={nodeProgress.completed}
+          onActivate={node.type === 'interactive' || node.contentType === 'quiz' ? () => setActiveInteractiveNode(node) : undefined}
           onClick={() => handleNodeClick(node, parentPos)}
         />
       );
@@ -168,8 +174,12 @@ export default function GraphScene({ data }: GraphSceneProps) {
   }, [path]);
 
   return (
-    <div className="w-full h-screen">
-      <Canvas camera={{ position: [0, 0, 100], fov: 60 }}>
+    <div className={`w-full h-screen transition-all duration-700 ${activeInteractiveNode ? 'scale-[0.98]' : 'scale-100'}`}>
+      <Canvas 
+        camera={{ position: [0, 0, 100], fov: 60 }}
+        style={{ filter: activeInteractiveNode ? 'blur(10px)' : 'none' }}
+        className="transition-all duration-700"
+      >
         <color attach="background" args={[config.background]} />
         <fog attach="fog" args={[config.background, 10, 150 + path.length * 20]} />
         <ambientLight intensity={config.ambientLightIntensity} />
@@ -187,7 +197,12 @@ export default function GraphScene({ data }: GraphSceneProps) {
               speed={1}
             />
           )}
-          <OrbitControls makeDefault enablePan={true} enableZoom={true} enableRotate={true} />
+          <OrbitControls 
+            makeDefault 
+            enablePan={!activeInteractiveNode} 
+            enableZoom={!activeInteractiveNode} 
+            enableRotate={!activeInteractiveNode} 
+          />
 
           <CameraController
             targetPosition={cameraTarget}
@@ -205,8 +220,18 @@ export default function GraphScene({ data }: GraphSceneProps) {
         </Suspense>
       </Canvas>
 
+      {activeInteractiveNode && (
+        <InteractivePanel 
+          node={activeInteractiveNode} 
+          onClose={() => setActiveInteractiveNode(null)}
+          onProgressUpdate={(id, progress, completed) => {
+            updateProgress(id, { progress, completed });
+          }}
+        />
+      )}
+
       {activeUniverse !== 'lobby' && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white backdrop-blur-xl transition-all">
+        <div className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white backdrop-blur-xl transition-all ${activeInteractiveNode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <button
             onClick={() => setUniverse('lobby')}
             className="px-3 py-1 rounded-full text-sm font-medium hover:bg-white/10 text-white/60 transition-colors"

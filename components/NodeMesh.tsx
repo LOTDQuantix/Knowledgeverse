@@ -19,6 +19,7 @@ interface NodeMeshProps {
     forks: number;
     lastCommitDate: string;
   };
+  onActivate?: () => void;
   onClick?: () => void;
 }
 
@@ -32,6 +33,7 @@ export default function NodeMesh({
   progress = 0,
   completed = false,
   githubStats,
+  onActivate,
   onClick
 }: NodeMeshProps) {
   const meshRef = useRef<Mesh>(null);
@@ -108,7 +110,7 @@ export default function NodeMesh({
         <Html distanceFactor={100} position={[0, finalSize + 2, 0]} center pointerEvents="none">
           <div className="bg-black/50 border border-white/20 backdrop-blur-md px-3 py-1 rounded text-white text-xs whitespace-nowrap opacity-100 transition-opacity pointer-events-none flex flex-col items-center gap-1">
             <span className="font-semibold">{label}</span>
-            
+
             {githubStats && (
               <div className="flex items-center gap-3 text-[10px] text-white/80 py-1 border-t border-white/10 mt-1 w-full justify-center">
                 <span className="flex items-center gap-1">⭐ {githubStats.stars}</span>
@@ -123,6 +125,18 @@ export default function NodeMesh({
               </div>
             )}
             {completed && <span className="text-[10px] text-green-400">Completed Mastery</span>}
+
+            {onActivate && (hovered) && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onActivate();
+                }}
+                className="mt-2 px-3 py-1 bg-white/20 border border-white/20 hover:bg-white/40 text-white rounded-full text-[10px] font-bold transition-all pointer-events-auto cursor-pointer"
+              >
+                Open Panel
+              </button>
+            )}
           </div>
         </Html>
       )}
